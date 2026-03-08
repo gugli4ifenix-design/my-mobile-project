@@ -6,27 +6,10 @@
 <title>JARVIS OS</title>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Syne:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
-:root{
-  --bg:#0d0d0d;
-  --bg2:#141414;
-  --bg3:#1c1c1c;
-  --surface:#181818;
-  --border:#252525;
-  --text:#ddd5c8;
-  --text2:#8a7a6a;
-  --text3:#4a3f35;
-  --accent:#c8a96e;
-  --green:#4a9e6a;
-  --green-bg:#0a2018;
-  --red:#c1121f;
-  --orange:#c4622d;
-  --mono:'JetBrains Mono',monospace;
-  --sans:'Syne',sans-serif
-}
+:root{--bg:#0d0d0d;--bg2:#141414;--bg3:#1c1c1c;--surface:#181818;--border:#252525;--text:#ddd5c8;--text2:#8a7a6a;--text3:#4a3f35;--accent:#c8a96e;--green:#4a9e6a;--green-bg:#0a2018;--red:#c1121f;--orange:#c4622d;--mono:'JetBrains Mono',monospace;--sans:'Syne',sans-serif}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-html{height:100%}
-body{font-family:var(--sans);background:var(--bg);color:var(--text);height:100%;display:flex;flex-direction:column;overflow:hidden}
-
+html,body{height:100%;overflow:hidden}
+body{font-family:var(--sans);background:var(--bg);color:var(--text);display:flex;flex-direction:column}
 .header{background:var(--surface);border-bottom:1px solid var(--border);padding:11px 16px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
 .header-left{display:flex;align-items:center;gap:10px}
 .logo{font-family:var(--mono);font-weight:700;font-size:.88rem;letter-spacing:.15em;color:var(--accent)}
@@ -34,18 +17,15 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);height:100%;
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
 .slabel{font-family:var(--mono);font-size:.58rem;color:var(--green);letter-spacing:.08em}
 .htime{font-family:var(--mono);font-size:.62rem;color:var(--text3)}
-
 .tabs{display:flex;background:var(--surface);border-bottom:1px solid var(--border);flex-shrink:0;overflow-x:auto;scrollbar-width:none}
 .tabs::-webkit-scrollbar{display:none}
 .tab{padding:10px 15px;font-family:var(--mono);font-size:.6rem;letter-spacing:.1em;color:var(--text3);cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;background:none;border-top:none;border-left:none;border-right:none;user-select:none}
 .tab.active{color:var(--accent);border-bottom-color:var(--accent)}
-
 .content{flex:1;overflow:hidden;position:relative}
 .page{display:none;position:absolute;inset:0;overflow-y:auto;padding:14px;-webkit-overflow-scrolling:touch}
 .page.active{display:block}
 #page-chat{padding:0;display:none;flex-direction:column}
 #page-chat.active{display:flex}
-
 .card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:14px;margin-bottom:10px}
 .ctitle{font-family:var(--mono);font-size:.58rem;letter-spacing:.12em;color:var(--text3);margin-bottom:12px;text-transform:uppercase}
 .mgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px}
@@ -60,14 +40,12 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);height:100%;
 .bg{background:var(--green-bg);color:var(--green)}
 .bgray{background:var(--bg3);color:var(--text3)}
 .borg{background:#2a1200;color:var(--orange)}
-
 .aitem{display:flex;align-items:center;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--border)}
 .aitem:last-child{border-bottom:none}
 .aleft{display:flex;align-items:center;gap:10px}
 .aicon{width:32px;height:32px;border-radius:6px;background:var(--bg3);display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0}
 .aname{font-size:.8rem;font-weight:600;color:var(--text)}
 .adesc{font-family:var(--mono);font-size:.54rem;color:var(--text3);margin-top:2px}
-
 .cmsgs{flex:1;overflow-y:auto;padding:12px 14px;display:flex;flex-direction:column;gap:10px;-webkit-overflow-scrolling:touch}
 .msg{max-width:88%;padding:10px 13px;border-radius:10px;font-size:.82rem;line-height:1.55;word-break:break-word}
 .mj{background:var(--surface);border:1px solid var(--border);align-self:flex-start;border-top-left-radius:2px}
@@ -83,7 +61,6 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);height:100%;
 .typing span{width:5px;height:5px;background:var(--text3);border-radius:50%;animation:bounce 1.2s infinite}
 .typing span:nth-child(2){animation-delay:.2s}.typing span:nth-child(3){animation-delay:.4s}
 @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
-
 .empty{text-align:center;padding:40px 20px;font-family:var(--mono);font-size:.7rem;color:var(--text3)}
 .lline{font-family:var(--mono);font-size:.6rem;color:var(--text2);padding:5px 0;border-bottom:1px solid var(--border);line-height:1.4}
 .lline:last-child{border-bottom:none}
@@ -95,7 +72,6 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);height:100%;
 </style>
 </head>
 <body>
-
 <div class="header">
   <div class="header-left">
     <div class="sdot"></div>
@@ -104,17 +80,15 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);height:100%;
   </div>
   <span class="htime" id="clock">--:--:--</span>
 </div>
-
 <div class="tabs">
   <button class="tab active" id="tab-main" onclick="showPage('main')">ГЛАВНАЯ</button>
   <button class="tab" id="tab-chat" onclick="showPage('chat')">JARVIS</button>
   <button class="tab" id="tab-agents" onclick="showPage('agents')">АГЕНТЫ</button>
-  <button class="tab" id="tab-tasks" onclick="showPage('tasks')">ЗАДАЧ�X</button>
+  <button class="tab" id="tab-tasks" onclick="showPage('tasks')">ЗАДАЧИ</button>
+  <button class="tab" id="tab-machine" onclick="showPage('machine')">МАШИНА</button>
   <button class="tab" id="tab-logs" onclick="showPage('logs')">ЛОГИ</button>
 </div>
-
 <div class="content">
-
   <div id="page-main" class="page active">
     <div class="mgrid">
       <div class="metric"><span class="mval" id="m-rev">--</span><div class="mlabel">Доход/мес</div></div>
@@ -136,7 +110,6 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);height:100%;
       <div class="sitem"><span class="sname">CryptoStart</span><span class="sval" id="s3">--</span></div>
     </div>
   </div>
-
   <div id="page-chat" class="page">
     <div class="cmsgs" id="msgs">
       <div class="msg mj"><div class="mlbl">JARVIS</div>Система активна. Готов к работе.</div>
@@ -146,63 +119,53 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);height:100%;
       <button class="cbtn" id="sbtn" onclick="send()">→</button>
     </div>
   </div>
-
   <div id="page-agents" class="page">
     <div class="card"><div class="ctitle">Агенты — 10</div><div id="alist"></div></div>
   </div>
-
   <div id="page-tasks" class="page">
     <div class="card"><div class="ctitle">Задачи</div><div id="tlist"><div class="empty">Загрузка...</div></div></div>
   </div>
-
+  <div id="page-machine" class="page">
+    <div class="card"><div class="ctitle">PM2 Процессы</div><div id="pm2list"><div class="empty">Загрузка...</div></div></div>
+    <div class="card"><div class="ctitle">Запуск агентов</div><div id="agentbtns"></div></div>
+  </div>
   <div id="page-logs" class="page">
     <div class="card"><div class="ctitle">Логи</div><div id="llist"><div class="empty">Загрузка...</div></div></div>
   </div>
-
 </div>
-
 <script>
 var P='https://209.38.237.240.nip.io';
 var SU='https://gmhrqoaqpnqppsifemxc.supabase.co';
-var SK='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdtaHJxb2FxcG5xcHBzaWZlbXhjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDA3NTMyODYsImV4cCI6MjA1NjMyOTI4Nn0.o2OKb43GFjVnMKFhTMXAKVbTpRgP_kjWCTPHHxBvHw0';
+var SK='sb_publishable_dWwVrankJ5RwGD0tKDjo3g_mmVPFzAO';
 var AG=[
   {i:'⚖️',n:'Legal',d:'Законы РФ, договоры',c:'--'},
   {i:'🔍',n:'Intelligence',d:'Аналитика, исследования',c:'02:00'},
   {i:'📈',n:'SEO',d:'Контент, позиции',c:'09:00'},
   {i:'💰',n:'Finance',d:'Доходы, расходы',c:'--'},
   {i:'⚙️',n:'DevOps',d:'Сервер, деплой',c:'06/12/18'},
-  {i:'🛡️',n:'Cybersecurity',d:'Мониторингугроз',c:'03:00'},
+  {i:'🛡️',n:'Cybersecurity',d:'Мониторинг угроз',c:'03:00'},
   {i:'👥',n:'HR',d:'Обучение, психология',c:'04:00'},
   {i:'💡',n:'Innovation',d:'Идеи, автоматизация',c:'05:00'},
-  {i:'🏯️',n:'Constructor',d:'Создание агентов',c:'--'},
-  {i:'🎯',n:'Coordinator',d:'Нультиагент анализ',c:'Пн 06:00'}
+  {i:'🏗️',n:'Constructor',d:'Создание агентов',c:'--'},
+  {i:'🎯',n:'Coordinator',d:'Мультиагент анализ',c:'Пн 06:00'}
 ];
-
-setInterval(function(){
-  document.getElementById('clock').textContent=new Date().toLocaleTimeString('ru',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
-},1000);
-
+setInterval(function(){document.getElementById('clock').textContent=new Date().toLocaleTimeString('ru',{hour:'2-digit',minute:'2-digit',second:'2-digit'});},1000);
 function showPage(id){
   document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active');});
   document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('active');});
   document.getElementById('page-'+id).classList.add('active');
   document.getElementById('tab-'+id).classList.add('active');
   if(id==='tasks')loadT();
+  if(id==='machine')loadMachine();
   if(id==='logs')loadL();
-  if(id==='chat'){setTimeout(function(){
-    var m=document.getElementById('msgs');m.scrollTop=m.scrollHeight;
-  },50);}
+  if(id==='chat'){setTimeout(function(){var m=document.getElementById('msgs');m.scrollTop=m.scrollHeight;},50);}
 }
-
 function renderAG(){
   var h='';
-  AG.forEach(function(a){
-    h+='<div class="aitem"><div class="aleft"><div class="aicon">'+a.i+'</div><div><div class="aname">'+a.n+'</div><div class="adesc">'+a.d+' · '+a.c+'</div></div></div><span class="badge bg">active</span></div>';
-  });
+  AG.forEach(function(a){h+='<div class="aitem"><div class="aleft"><div class="aicon">'+a.i+'</div><div><div class="aname">'+a.n+'</div><div class="adesc">'+a.d+' · '+a.c+'</div></div></div><span class="badge bg">active</span></div>';});
   document.getElementById('alist').innerHTML=h;
 }
 renderAG();
-
 fetch(SU+'/rest/v1/metrics?select=*',{headers:{'apikey':SK,'Authorization':'Bearer '+SK}})
 .then(function(r){return r.json();})
 .then(function(d){
@@ -217,84 +180,52 @@ fetch(SU+'/rest/v1/metrics?select=*',{headers:{'apikey':SK,'Authorization':'Bear
   if(rv)document.getElementById('m-rev').textContent='$'+(rv/1000).toFixed(1)+'K';
   if(tr)document.getElementById('m-tr').textContent=(tr/1000).toFixed(1)+'K';
   var sb=document.getElementById('sb');sb.textContent='ok';sb.className='badge bg';
-}).catch(function(){
-  var sb=document.getElementById('sb');sb.textContent='err';sb.className='badge borg';
-});
-
+}).catch(function(){var sb=document.getElementById('sb');sb.textContent='err';sb.className='badge borg';});
 function loadT(){
-  var el=document.getElementById('tlist');
-  el.innerHTML='<div class="empty">Загрузка...</div>';
+  var el=document.getElementById('tlist');el.innerHTML='<div class="empty">Загрузка...</div>';
   fetch(SU+'/rest/v1/tasks?select=*&order=created_at.desc&limit=20',{headers:{'apikey':SK,'Authorization':'Bearer '+SK}})
   .then(function(r){return r.json();})
   .then(function(d){
     if(!d||!d.length){el.innerHTML='<div class="empty">Пусто</div>';return;}
-    el.innerHTML=d.map(function(t){
-      return '<div class="titem"><div><div class="ttext">'+(t.task||'--')+'</div><div class="tmeta">'+(t.agent||'--')+' · '+(t.status||'pending')+'</div></div><span class="badge '+(t.status==='done'?'bg':'bgray')+'">'+(t.status||'pending')+'</span></div>';
-    }).join('');
+    el.innerHTML=d.map(function(t){return '<div class="titem"><div><div class="ttext">'+(t.task||'--')+'</div><div class="tmeta">'+(t.agent||'--')+' · '+(t.status||'pending')+'</div></div><span class="badge '+(t.status==='done'?'bg':'bgray')+'">'+(t.status||'pending')+'</span></div>';}).join('');
   }).catch(function(){el.innerHTML='<div class="empty">Ошибка</div>';});
 }
-
 function loadL(){
-  var el=document.getElementById('llist');
-  el.innerHTML='<div class="empty">Загрузка...</div>';
+  var el=document.getElementById('llist');el.innerHTML='<div class="empty">Загрузка...</div>';
   fetch(SU+'/rest/v1/agent_logs?select=*&order=created_at.desc&limit=30',{headers:{'apikey':SK,'Authorization':'Bearer '+SK}})
   .then(function(r){return r.json();})
   .then(function(d){
     if(!d||!d.length){el.innerHTML='<div class="empty">Пусто</div>';return;}
-    el.innerHTML=d.map(function(l){
-      return '<div class="lline"><span class="lt">'+(l.created_at?new Date(l.created_at).toLocaleTimeString('ru'):'--')+'</span> · <span class="'+((l.status==='ok')?'lok':'lerr')+'">'+(l.agent||'--')+'</span> · '+(l.action||'--')+'</div>';
-    }).join('');
-  }).catch(function(){
-    el.innerHTML='<div class="empty">Ошибка</div>';
-  });
+    el.innerHTML=d.map(function(l){return '<div class="lline"><span class="lt">'+(l.created_at?new Date(l.created_at).toLocaleTimeString('ru'):'--')+'</span> · <span class="'+(l.status==='ok'?'lok':'lerr')+'">'+(l.agent||'--')+'</span> · '+(l.action||'--')+'</div>';}).join('');
+  }).catch(function(){el.innerHTML='<div class="empty">Ошибка</div>';});
 }
-
-var hist=[];
+var API='https://209.38.237.240.nip.io';var hist=[];
 function send(){
   var inp=document.getElementById('inp');
   var txt=inp.value.trim();if(!txt)return;
-  inp.value='';
-  document.getElementById('sbtn').disabled=true;
-  addM('u',txt);
-  hist.push({role:'user',content:txt});
+  inp.value='';document.getElementById('sbtn').disabled=true;
+  addM('u',txt);hist.push({role:'user',content:txt});
   var ty=addTy();
   fetch(P,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
-    model:'claude-sonnet-4-20250514',
-    max_tokens:1000,
-    system:'Ты JARVIS — автономная AI операционная система, уже развёрнутая на сервере 209.38.237.240 (Ubuntu, DigitalOcean). Система активна 24/7. Активные агенты: Legal, Intelligence, SEO, Finance, DevOps, Cybersecurity, HR, Innovation, Constructor, Coordinator. PM2 управляет процессами jarvis-bot и jarvis-proxy. Cron запускает агентов по расписанию. Supabase хранит логи и задачи. Панель управления: my-mobile-project.vercel.app/jarvis.html. Telegram бот: @GugaJ_bot. Хозяин системы — Кирилле, работает с системой после 20:00. Отвечай коротко, чётко, по делу. Тыуже запущен — не объясняй как запуститься.',
+    model:'claude-sonnet-4-20250514',max_tokens:1000,
+    system:'Ты JARVIS — автономная AI операционная система, уже развёрнутая на сервере 209.38.237.240 (Ubuntu, DigitalOcean). Активные агенты: Legal, Intelligence, SEO, Finance, DevOps, Cybersecurity, HR, Innovation, Constructor, Coordinator. PM2 управляет jarvis-bot и jarvis-proxy. Хозяин — Кирилл, работает после 20:00. Отвечай коротко, чётко, на русском. Ты уже запущен.',
     messages:hist
   })})
   .then(function(r){return r.json();})
-  .then(function(d){
-    ty.remove();
-    var rep=d.content&&d.content[0]?d.content[0].text:'Нет ответа';
-    addM('j',rep);
-    hist.push({role:'assistant',content:rep});
-  })
+  .then(function(d){ty.remove();var rep=d.content&&d.content[0]?d.content[0].text:'Нет ответа';addM('j',rep);hist.push({role:'assistant',content:rep});})
   .catch(function(){ty.remove();addM('j','Ошибка связи.');})
   .finally(function(){document.getElementById('sbtn').disabled=false;});
 }
-
 function addM(r,t){
-  var el=document.createElement('div');
-  el.className='msg '+(r==='u'?'mu':'mj');
+  var el=document.createElement('div');el.className='msg '+(r==='u'?'mu':'mj');
   el.innerHTML=r==='j'?'<div class="mlbl">JARVIS</div>'+t:t;
-  var m=document.getElementById('msgs');
-  m.appendChild(el);
-  m.scrollTop=m.scrollHeight;
-  return el;
+  var m=document.getElementById('msgs');m.appendChild(el);m.scrollTop=m.scrollHeight;return el;
 }
-
 function addTy(){
-  var el=document.createElement('div');
-  el.className='msg mj';
+  var el=document.createElement('div');el.className='msg mj';
   el.innerHTML='<div class="mlbl">JARVIS</div><div class="typing"><span></span><span></span><span></span></div>';
-  var m=document.getElementById('msgs');
-  m.appendChild(el);
-  m.scrollTop=m.scrollHeight;
-  return el;
+  var m=document.getElementById('msgs');m.appendChild(el);m.scrollTop=m.scrollHeight;return el;
 }
-
 document.getElementById('inp').addEventListener('keydown',function(e){if(e.key==='Enter')send();});
 </script>
 </body>
