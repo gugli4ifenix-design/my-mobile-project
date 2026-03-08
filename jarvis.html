@@ -2,71 +2,100 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 <title>JARVIS OS</title>
 <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Syne:wght@400;600;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#e8ddd0;--bg2:#ddd0c0;--bg3:#cfc0ae;--surface:#f5ede2;--border:#c4b09a;--text:#2c1f0e;--text2:#6b5240;--text3:#9c8270;--accent:#2c1f0e;--green:#3a6b4a;--green-bg:#c8e6d0;--red:#c1121f;--orange:#c4622d;--mono:'JetBrains Mono',monospace;--sans:'Syne',sans-serif}
+:root{
+  --bg:#0d0d0d;
+  --bg2:#141414;
+  --bg3:#1c1c1c;
+  --surface:#181818;
+  --border:#252525;
+  --text:#ddd5c8;
+  --text2:#8a7a6a;
+  --text3:#4a3f35;
+  --accent:#c8a96e;
+  --green:#4a9e6a;
+  --green-bg:#0a2018;
+  --red:#c1121f;
+  --orange:#c4622d;
+  --mono:'JetBrains Mono',monospace;
+  --sans:'Syne',sans-serif
+}
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:100vh}
-.header{background:var(--surface);border-bottom:1px solid var(--border);padding:14px 20px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100}
-.header-left{display:flex;align-items:center;gap:12px}
-.logo{font-family:var(--mono);font-weight:700;font-size:1rem;letter-spacing:.15em}
-.sdot{width:8px;height:8px;border-radius:50%;background:var(--green);animation:pulse 2s infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
-.slabel{font-family:var(--mono);font-size:.65rem;color:var(--green)}
-.htime{font-family:var(--mono);font-size:.7rem;color:var(--text3)}
-.tabs{display:flex;background:var(--surface);border-bottom:1px solid var(--border);overflow-x:auto;position:sticky;top:49px;z-index:99}
-.tab{padding:12px 16px;font-family:var(--mono);font-size:.68rem;color:var(--text3);cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;background:none;border-top:none;border-left:none;border-right:none;user-select:none}
-.tab.active{color:var(--text);border-bottom-color:var(--accent)}
-.content{padding:16px;max-width:600px;margin:0 auto}
-.page{display:none}.page.active{display:block}
-.card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:12px}
-.ctitle{font-family:var(--mono);font-size:.65rem;letter-spacing:.12em;color:var(--text3);margin-bottom:14px;text-transform:uppercase}
-.mgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:12px}
-.metric{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:14px 10px;text-align:center}
-.mval{font-family:var(--mono);font-size:1.3rem;font-weight:700;display:block}
-.mlabel{font-size:.58rem;color:var(--text3);margin-top:4px;font-family:var(--mono)}
-.sitem{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid var(--bg3)}
+html{height:100%}
+body{font-family:var(--sans);background:var(--bg);color:var(--text);height:100%;display:flex;flex-direction:column;overflow:hidden}
+
+.header{background:var(--surface);border-bottom:1px solid var(--border);padding:11px 16px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.header-left{display:flex;align-items:center;gap:10px}
+.logo{font-family:var(--mono);font-weight:700;font-size:.88rem;letter-spacing:.15em;color:var(--accent)}
+.sdot{width:7px;height:7px;border-radius:50%;background:var(--green);animation:pulse 2s infinite;flex-shrink:0}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.slabel{font-family:var(--mono);font-size:.58rem;color:var(--green);letter-spacing:.08em}
+.htime{font-family:var(--mono);font-size:.62rem;color:var(--text3)}
+
+.tabs{display:flex;background:var(--surface);border-bottom:1px solid var(--border);flex-shrink:0;overflow-x:auto;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{padding:10px 15px;font-family:var(--mono);font-size:.6rem;letter-spacing:.1em;color:var(--text3);cursor:pointer;border-bottom:2px solid transparent;white-space:nowrap;background:none;border-top:none;border-left:none;border-right:none;user-select:none}
+.tab.active{color:var(--accent);border-bottom-color:var(--accent)}
+
+.content{flex:1;overflow:hidden;position:relative}
+.page{display:none;position:absolute;inset:0;overflow-y:auto;padding:14px;-webkit-overflow-scrolling:touch}
+.page.active{display:block}
+#page-chat{padding:0;display:none;flex-direction:column}
+#page-chat.active{display:flex}
+
+.card{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:14px;margin-bottom:10px}
+.ctitle{font-family:var(--mono);font-size:.58rem;letter-spacing:.12em;color:var(--text3);margin-bottom:12px;text-transform:uppercase}
+.mgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px}
+.metric{background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:12px 6px;text-align:center}
+.mval{font-family:var(--mono);font-size:1.15rem;font-weight:700;display:block;color:var(--accent)}
+.mlabel{font-size:.52rem;color:var(--text3);margin-top:3px;font-family:var(--mono)}
+.sitem{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--bg3)}
 .sitem:last-child{border-bottom:none}
-.sname{font-family:var(--mono);font-size:.75rem;color:var(--text2)}
-.sval{font-family:var(--mono);font-size:.75rem}
-.badge{font-family:var(--mono);font-size:.6rem;padding:3px 8px;border-radius:4px}
+.sname{font-family:var(--mono);font-size:.7rem;color:var(--text2)}
+.sval{font-family:var(--mono);font-size:.7rem;color:var(--text2)}
+.badge{font-family:var(--mono);font-size:.56rem;padding:3px 7px;border-radius:3px}
 .bg{background:var(--green-bg);color:var(--green)}
 .bgray{background:var(--bg3);color:var(--text3)}
-.borg{background:#f5d5c0;color:var(--orange)}
-.aitem{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-bottom:1px solid var(--bg3)}
+.borg{background:#2a1200;color:var(--orange)}
+
+.aitem{display:flex;align-items:center;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--border)}
 .aitem:last-child{border-bottom:none}
 .aleft{display:flex;align-items:center;gap:10px}
-.aicon{width:34px;height:34px;border-radius:8px;background:var(--bg2);display:flex;align-items:center;justify-content:center;font-size:1rem}
-.aname{font-size:.85rem;font-weight:600}
-.adesc{font-family:var(--mono);font-size:.58rem;color:var(--text3);margin-top:2px}
-.cwrap{display:flex;flex-direction:column;height:calc(100vh - 115px)}
-.cmsgs{flex:1;overflow-y:auto;padding:8px 0;display:flex;flex-direction:column;gap:10px}
-.msg{max-width:85%;padding:10px 14px;border-radius:12px;font-size:.85rem;line-height:1.5;word-break:break-word}
+.aicon{width:32px;height:32px;border-radius:6px;background:var(--bg3);display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0}
+.aname{font-size:.8rem;font-weight:600;color:var(--text)}
+.adesc{font-family:var(--mono);font-size:.54rem;color:var(--text3);margin-top:2px}
+
+.cmsgs{flex:1;overflow-y:auto;padding:12px 14px;display:flex;flex-direction:column;gap:10px;-webkit-overflow-scrolling:touch}
+.msg{max-width:88%;padding:10px 13px;border-radius:10px;font-size:.82rem;line-height:1.55;word-break:break-word}
 .mj{background:var(--surface);border:1px solid var(--border);align-self:flex-start;border-top-left-radius:2px}
-.mu{background:var(--accent);color:var(--surface);align-self:flex-end;border-top-right-radius:2px}
-.mlbl{font-family:var(--mono);font-size:.55rem;color:var(--text3);margin-bottom:5px}
-.cbottom{display:flex;gap:8px;padding:10px 0 4px;border-top:1px solid var(--border)}
-.cinput{flex:1;padding:11px 14px;border:1px solid var(--border);border-radius:8px;font-family:var(--sans);font-size:.85rem;background:var(--surface);color:var(--text);outline:none;-webkit-appearance:none}
+.mu{background:var(--accent);color:#0d0d0d;align-self:flex-end;border-top-right-radius:2px;font-weight:600}
+.mlbl{font-family:var(--mono);font-size:.5rem;color:var(--text3);margin-bottom:4px;letter-spacing:.08em}
+.cbottom{flex-shrink:0;display:flex;gap:8px;padding:10px 14px 14px;border-top:1px solid var(--border);background:var(--bg)}
+.cinput{flex:1;padding:11px 13px;border:1px solid var(--border);border-radius:7px;font-family:var(--sans);font-size:.83rem;background:var(--surface);color:var(--text);outline:none;-webkit-appearance:none}
 .cinput:focus{border-color:var(--accent)}
-.cbtn{padding:11px 20px;background:var(--accent);color:var(--surface);border:none;border-radius:8px;font-family:var(--mono);font-size:.8rem;cursor:pointer}
-.cbtn:disabled{opacity:.4}
-.typing{display:flex;gap:4px;align-items:center}
+.cinput::placeholder{color:var(--text3)}
+.cbtn{padding:11px 18px;background:var(--accent);color:#0d0d0d;border:none;border-radius:7px;font-family:var(--mono);font-size:.8rem;cursor:pointer;font-weight:700;flex-shrink:0}
+.cbtn:disabled{opacity:.3}
+.typing{display:flex;gap:4px;align-items:center;padding:2px 0}
 .typing span{width:5px;height:5px;background:var(--text3);border-radius:50%;animation:bounce 1.2s infinite}
 .typing span:nth-child(2){animation-delay:.2s}.typing span:nth-child(3){animation-delay:.4s}
 @keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
-.empty{text-align:center;padding:40px 20px;font-family:var(--mono);font-size:.75rem;color:var(--text3)}
-.lline{font-family:var(--mono);font-size:.65rem;color:var(--text2);padding:5px 0;border-bottom:1px solid var(--bg3);line-height:1.4}
+
+.empty{text-align:center;padding:40px 20px;font-family:var(--mono);font-size:.7rem;color:var(--text3)}
+.lline{font-family:var(--mono);font-size:.6rem;color:var(--text2);padding:5px 0;border-bottom:1px solid var(--border);line-height:1.4}
 .lline:last-child{border-bottom:none}
 .lt{color:var(--text3)}.lok{color:var(--green)}.lerr{color:var(--red)}
-.titem{display:flex;justify-content:space-between;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--bg3);gap:10px}
+.titem{display:flex;justify-content:space-between;align-items:flex-start;padding:9px 0;border-bottom:1px solid var(--border);gap:10px}
 .titem:last-child{border-bottom:none}
-.ttext{font-size:.82rem;flex:1}
-.tmeta{font-family:var(--mono);font-size:.58rem;color:var(--text3);margin-top:3px}
+.ttext{font-size:.78rem;flex:1;color:var(--text)}
+.tmeta{font-family:var(--mono);font-size:.54rem;color:var(--text3);margin-top:3px}
 </style>
 </head>
 <body>
+
 <div class="header">
   <div class="header-left">
     <div class="sdot"></div>
@@ -75,56 +104,63 @@ body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:1
   </div>
   <span class="htime" id="clock">--:--:--</span>
 </div>
+
 <div class="tabs">
   <button class="tab active" id="tab-main" onclick="showPage('main')">ГЛАВНАЯ</button>
   <button class="tab" id="tab-chat" onclick="showPage('chat')">JARVIS</button>
   <button class="tab" id="tab-agents" onclick="showPage('agents')">АГЕНТЫ</button>
-  <button class="tab" id="tab-tasks" onclick="showPage('tasks')">ЗАДАЧИ</button>
+  <button class="tab" id="tab-tasks" onclick="showPage('tasks')">ЗАДАЧ�X</button>
   <button class="tab" id="tab-logs" onclick="showPage('logs')">ЛОГИ</button>
 </div>
+
 <div class="content">
-<div id="page-main" class="page active">
-  <div class="mgrid">
-    <div class="metric"><span class="mval" id="m-rev">--</span><div class="mlabel">Доход/мес</div></div>
-    <div class="metric"><span class="mval" id="m-tr">--</span><div class="mlabel">Визитов</div></div>
-    <div class="metric"><span class="mval">10</span><div class="mlabel">Агентов</div></div>
+
+  <div id="page-main" class="page active">
+    <div class="mgrid">
+      <div class="metric"><span class="mval" id="m-rev">--</span><div class="mlabel">Доход/мес</div></div>
+      <div class="metric"><span class="mval" id="m-tr">--</span><div class="mlabel">Визитов</div></div>
+      <div class="metric"><span class="mval">10</span><div class="mlabel">Агентов</div></div>
+    </div>
+    <div class="card">
+      <div class="ctitle">Системы</div>
+      <div class="sitem"><span class="sname">jarvis-bot</span><span class="badge bg">online</span></div>
+      <div class="sitem"><span class="sname">jarvis-proxy</span><span class="badge bg">online</span></div>
+      <div class="sitem"><span class="sname">Claude API</span><span class="badge bg">active</span></div>
+      <div class="sitem"><span class="sname">Supabase</span><span class="badge bgray" id="sb">--</span></div>
+      <div class="sitem"><span class="sname">Диск</span><span class="sval">16%</span></div>
+    </div>
+    <div class="card">
+      <div class="ctitle">Сайты</div>
+      <div class="sitem"><span class="sname">FitBody Pro</span><span class="sval" id="s1">--</span></div>
+      <div class="sitem"><span class="sname">AI Tools Hub</span><span class="sval" id="s2">--</span></div>
+      <div class="sitem"><span class="sname">CryptoStart</span><span class="sval" id="s3">--</span></div>
+    </div>
   </div>
-  <div class="card">
-    <div class="ctitle">Системы</div>
-    <div class="sitem"><span class="sname">jarvis-bot</span><span class="badge bg">online</span></div>
-    <div class="sitem"><span class="sname">jarvis-proxy</span><span class="badge bg">online</span></div>
-    <div class="sitem"><span class="sname">Claude API</span><span class="badge bg">active</span></div>
-    <div class="sitem"><span class="sname">Supabase</span><span class="badge bgray" id="sb">--</span></div>
-    <div class="sitem"><span class="sname">Диск</span><span class="sval">16%</span></div>
-  </div>
-  <div class="card">
-    <div class="ctitle">Сайты</div>
-    <div class="sitem"><span class="sname">FitBody Pro</span><span class="sval" id="s1">--</span></div>
-    <div class="sitem"><span class="sname">AI Tools Hub</span><span class="sval" id="s2">--</span></div>
-    <div class="sitem"><span class="sname">CryptoStart</span><span class="sval" id="s3">--</span></div>
-  </div>
-</div>
-<div id="page-chat" class="page">
-  <div class="cwrap">
+
+  <div id="page-chat" class="page">
     <div class="cmsgs" id="msgs">
       <div class="msg mj"><div class="mlbl">JARVIS</div>Система активна. Готов к работе.</div>
     </div>
     <div class="cbottom">
-      <input class="cinput" id="inp" type="text" placeholder="Команда..." autocomplete="off">
+      <input class="cinput" id="inp" type="text" placeholder="Команда..." autocomplete="off" autocorrect="off" autocapitalize="off">
       <button class="cbtn" id="sbtn" onclick="send()">→</button>
     </div>
   </div>
+
+  <div id="page-agents" class="page">
+    <div class="card"><div class="ctitle">Агенты — 10</div><div id="alist"></div></div>
+  </div>
+
+  <div id="page-tasks" class="page">
+    <div class="card"><div class="ctitle">Задачи</div><div id="tlist"><div class="empty">Загрузка...</div></div></div>
+  </div>
+
+  <div id="page-logs" class="page">
+    <div class="card"><div class="ctitle">Логи</div><div id="llist"><div class="empty">Загрузка...</div></div></div>
+  </div>
+
 </div>
-<div id="page-agents" class="page">
-  <div class="card"><div class="ctitle">Агенты — 10</div><div id="alist"></div></div>
-</div>
-<div id="page-tasks" class="page">
-  <div class="card"><div class="ctitle">Задачи</div><div id="tlist"><div class="empty">Загрузка...</div></div></div>
-</div>
-<div id="page-logs" class="page">
-  <div class="card"><div class="ctitle">Логи</div><div id="llist"><div class="empty">Загрузка...</div></div></div>
-</div>
-</div>
+
 <script>
 var P='https://209.38.237.240.nip.io';
 var SU='https://gmhrqoaqpnqppsifemxc.supabase.co';
@@ -135,13 +171,17 @@ var AG=[
   {i:'📈',n:'SEO',d:'Контент, позиции',c:'09:00'},
   {i:'💰',n:'Finance',d:'Доходы, расходы',c:'--'},
   {i:'⚙️',n:'DevOps',d:'Сервер, деплой',c:'06/12/18'},
-  {i:'🛡️',n:'Cybersecurity',d:'Мониторинг угроз',c:'03:00'},
+  {i:'🛡️',n:'Cybersecurity',d:'МониторингуB��˄��оржны',c:'03:00'},
   {i:'👥',n:'HR',d:'Обучение, психология',c:'04:00'},
   {i:'💡',n:'Innovation',d:'Идеи, автоматизация',c:'05:00'},
-  {i:'🏗️',n:'Constructor',d:'Создание агентов',c:'--'},
-  {i:'🎯',n:'Coordinator',d:'Мультиагент анализ',c:'Пн 06:00'}
+  {i:'🏯️',n:'Constructor',d:'Создание агентов',c:'--'},
+  {i:'🎯',n:'Coordinator',d:'Нультиагент анализ',c:'Пн 06:00'}
 ];
-setInterval(function(){document.getElementById('clock').textContent=new Date().toLocaleTimeString('ru',{hour:'2-digit',minute:'2-digit',second:'2-digit'});},1000);
+
+setInterval(function(){
+  document.getElementById('clock').textContent=new Date().toLocaleTimeString('ru',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+},1000);
+
 function showPage(id){
   document.querySelectorAll('.page').forEach(function(p){p.classList.remove('active');});
   document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('active');});
@@ -149,14 +189,23 @@ function showPage(id){
   document.getElementById('tab-'+id).classList.add('active');
   if(id==='tasks')loadT();
   if(id==='logs')loadL();
+  if(id==='chat'){setTimeout(function(){
+    var m=document.getElementById('msgs');m.scrollTop=m.scrollHeight;
+  },50);}
 }
+
 function renderAG(){
-  var h='';
-  AG.forEach(function(a){h+='<div class="aitem"><div class="aleft"><div class="aicon">'+a.i+'</div><div><div class="aname">'+a.n+'</div><div class="adesc">'+a.d+' · '+a.c+'</div></div></div><span class="badge bg">active</span></div>';});
-  document.getElementById('alist').innerHTML=h;
+  var h = '';
+  AG.forEach(function(a){
+    h += '<div class="aitem"><div class="aleft"><div class="aicon">' + a.i + '</div><div><div class="aname">' + a.n + '</div><div class="adesc">' + a.d + ' · ' + a.c + '</div></div></div><span class="badge bg">active</span></div>';
+  });
+  document.getElementById('alist').innerHTML = h;
 }
 renderAG();
-fetch(SU+'/rest/v1/metrics?select=*',{headers:{'apikey':SK,'Authorization':'Bearer '+SK}}).then(function(r){return r.json();}).then(function(d){
+
+fetch(SU+'/rest/v1/metrics?select=*',{headers:{'apikey':SK,'Authorization':'Bearer '+SK}})
+.then(function(r){return r.json();})
+.then(function(d){
   var rv=0,tr=0;
   d.forEach(function(x){
     if(x.revenue)rv+=Number(x.revenue);
@@ -168,47 +217,82 @@ fetch(SU+'/rest/v1/metrics?select=*',{headers:{'apikey':SK,'Authorization':'Bear
   if(rv)document.getElementById('m-rev').textContent='$'+(rv/1000).toFixed(1)+'K';
   if(tr)document.getElementById('m-tr').textContent=(tr/1000).toFixed(1)+'K';
   var sb=document.getElementById('sb');sb.textContent='ok';sb.className='badge bg';
-}).catch(function(){var sb=document.getElementById('sb');sb.textContent='err';sb.className='badge borg';});
+}).catch(function(){
+  var sb=document.getElementById('sb');sb.textContent='err';sb.className='badge borg';
+});
+
 function loadT(){
-  var el=document.getElementById('tlist');el.innerHTML='<div class="empty">Загрузка...</div>';
-  fetch(SU+'/rest/v1/tasks?select=*&order=created_at.desc&limit=20',{headers:{'apikey':SK,'Authorization':'Bearer '+SK}}).then(function(r){return r.json();}).then(function(d){
-    if(!d.length){el.innerHTML='<div class="empty">Пусто</div>';return;}
-    el.innerHTML=d.map(function(t){return '<div class="titem"><div><div class="ttext">'+(t.task||'--')+'</div><div class="tmeta">'+(t.agent||'--')+' · '+(t.status||'pending')+'</div></div><span class="badge '+(t.status==='done'?'bg':'bgray')+'">'+(t.status||'pending')+'</span></div>';}).join('');
+  var el=document.getElementById('tlist');
+  el.innerHTML='<div class="empty">Загрузка...</div>';
+  fetch(SU+'/rest/v1/tasks?select=*&order=created_at.desc&limit=20',{headers:{'apikey':SK,'Authorization':'Bearer '+SK}})
+  .then(function(r){return r.json();})
+  .then(function(d){
+    if(!d||!d.length){el.innerHTML='<div class="empty">Пусто</div>';return;}
+    el.innerHTML=d.map(function(t){
+      return '<div class="titem"><div><div class="ttext">'+(t.task||'--')+'</div><div class="tmeta">'+(t.agent||'--')+' · '+(t.status||'pending')+'</div></div><span class="badge '+(t.status==='done'?'bg':'bgray')+'">'+(t.status||'pending')+'</span></div>';
+    }).join('');
   }).catch(function(){el.innerHTML='<div class="empty">Ошибка</div>';});
 }
+
 function loadL(){
-  var el=document.getElementById('llist');el.innerHTML='<div class="empty">Загрузка...</div>';
-  fetch(SU+'/rest/v1/agent_logs?select=*&order=created_at.desc&limit=30',{headers:{'apikey':SK,'Authorization':'Bearer '+SK}}).then(function(r){return r.json();}).then(function(d){
-    if(!d.length){el.innerHTML='<div class="empty">Пусто</div>';return;}
-    el.innerHTML=d.map(function(l){return '<div class="lline"><span class="lt">'+(l.created_at?new Date(l.created_at).toLocaleTimeString('ru'):'--')+'</span> · <span class="'+(l.status==='ok'?'lok':'lerr')+'">'+(l.agent||'--')+'</span> · '+(l.action||'--')+'</div>';}).join('');
+  var el=document.getElementById('llist');
+  el.innerHTML='<div class="empty">Загрузка...</div>';
+  fetch(SU+'/rest/v1/agent_logs?select=*&order=created_at.desc&limit=30',{headers:{'apikey':SK,'Authorization':'Bearer '+SK}})
+  .then(function(r){return r.json();})
+  .then(function(d){
+    if(!d||!d.length){el.innerHTML='<div class="empty">Пусто</div>';return;}
+    el.innerHTML=d.map(function(l){
+      return '<div class="lline"><span class="lt">'+(l.created_at?new Date(l.created_at).toLocaleTimeString('ru'):'--')+'</span> · <span class="'+(l.status==='ok'?'lok':'lerr')+'">'+(l.agent||'--')+'</span> · '+(l.action||'--')+'</div>';
+    }).join('');
   }).catch(function(){el.innerHTML='<div class="empty">Ошибка</div>';});
 }
+
 var hist=[];
 function send(){
   var inp=document.getElementById('inp');
   var txt=inp.value.trim();if(!txt)return;
-  inp.value='';document.getElementById('sbtn').disabled=true;
-  addM('u',txt);hist.push({role:'user',content:txt});
+  inp.value='';
+  document.getElementById('sbtn').disabled=true;
+  addM('u',txt);
+  hist.push({role:'user',content:txt});
   var ty=addTy();
-  fetch(P,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,system:'Ты JARVIS — AI операционная система. Отвечай коротко, чётко, на русском.',messages:hist})}).then(function(r){return r.json();}).then(function(d){
-    ty.parentNode.removeChild(ty);
+  fetch(P,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({
+    model:'claude-sonnet-4-20250514',
+    max_tokens:1000,
+    system:'Ты JARVIS — AI операционная система бизнеса. Отвечай коротко, чётко, по делу. Только русский язык.',
+    messages:hist
+  })})
+  .then(function(r){return r.json();})
+  .then(function(d){
+    ty.remove();
     var rep=d.content&&d.content[0]?d.content[0].text:'Нет ответа';
-    addM('j',rep);hist.push({role:'assistant',content:rep});
-  }).catch(function(){ty.parentNode.removeChild(ty);addM('j','Ошибка связи.');}).finally(function(){document.getElementById('sbtn').disabled=false;});
+    addM('j',rep);
+    hist.push({role:'assistant',content:rep});
+  })
+  .catch(function(){ty.remove();addM('j','Ошибка связи.');})
+  .finally(function(){document.getElementById('sbtn').disabled=false;});
 }
+
 function addM(r,t){
   var el=document.createElement('div');
   el.className='msg '+(r==='u'?'mu':'mj');
   el.innerHTML=r==='j'?'<div class="mlbl">JARVIS</div>'+t:t;
-  var m=document.getElementById('msgs');m.appendChild(el);m.scrollTop=m.scrollHeight;
+  var m=document.getElementById('msgs');
+  m.appendChild(el);
+  m.scrollTop=m.scrollHeight;
   return el;
 }
+
 function addTy(){
-  var el=document.createElement('div');el.className='msg mj';
+  var el=document.createElement('div');
+  el.className='msg mj';
   el.innerHTML='<div class="mlbl">JARVIS</div><div class="typing"><span></span><span></span><span></span></div>';
-  var m=document.getElementById('msgs');m.appendChild(el);m.scrollTop=m.scrollHeight;
+  var m=document.getElementById('msgs');
+  m.appendChild(el);
+  m.scrollTop=m.scrollHeight;
   return el;
 }
+
 document.getElementById('inp').addEventListener('keydown',function(e){if(e.key==='Enter')send();});
 </script>
 </body>
